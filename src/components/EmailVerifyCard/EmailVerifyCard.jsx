@@ -22,7 +22,7 @@ const EmailVerifyCard = ({ email, userId }) => {
     const email = emailRef.current.value;
     setSendLink(false);
     sendSignInLinkToEmail(auth, email, {
-      url: "http://localhost:5173/Signup?email=true",
+      url: "http://16.170.140.185/Signup?email=true",
       handleCodeInApp: true,
     })
       .then((result) => {
