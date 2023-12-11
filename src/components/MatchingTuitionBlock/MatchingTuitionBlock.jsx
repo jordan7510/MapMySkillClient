@@ -19,6 +19,7 @@ import useAuthChanged from "../../Hooks/useAuthChanged";
 import useGetValue from "../../Hooks/useGetValue";
 import usePlanDataValue from "../../Hooks/usePlanDataValue";
 import Swal from "sweetalert2";
+import instance from "../../config/axios.config";
 
 const MatchingTuitionBlock = ({ jobs, user }) => {
   const [isShowContact, setShowContact] = useState(false);
@@ -33,8 +34,8 @@ const MatchingTuitionBlock = ({ jobs, user }) => {
 
   useEffect(() => {
     if (user) {
-      axios
-        .get(`http://localhost:8080/api/contactsviewed/${user?.userid}`)
+      instance
+        .get(`/api/contactsviewed/${user?.userid}`)
         .then((response) => {
           console.log("uncloked response", response);
           const unlock = response.data.map((item) => {
@@ -53,9 +54,9 @@ const MatchingTuitionBlock = ({ jobs, user }) => {
   };
 
   const handleUnlock = () => {
-    axios
+    instance
       .get(
-        `http://localhost:8080/api/subscriptionusers/${user?.userid}?plantype=${plantype}`
+        `/api/subscriptionusers/${user?.userid}?plantype=${plantype}`
       )
       .then((res1) => {
         if (res1.data.length == 0) {
@@ -82,18 +83,18 @@ const MatchingTuitionBlock = ({ jobs, user }) => {
             viewedusers: jobs.userid,
           };
 
-          axios
+          instance
             .post(
-              `http://localhost:8080/api/contactsviewed`,
+              `/api/contactsviewed`,
               contactViewedPayload
             )
             .then((res2) => {
               console.log("contactsviewed response", res2);
               console.log("plan id", res1?.data[0]?.subscriptionusers_id);
               if (res2.statusText == "OK") {
-                axios
+                instance
                   .put(
-                    `http://localhost:8080/api/subscriptionusers/update/${res1?.data[0]?.subscriptionusers_id}`
+                    `/api/subscriptionusers/update/${res1?.data[0]?.subscriptionusers_id}`
                   )
                   .then((res3) => {
                     console.log("plan update res", res3);
@@ -122,7 +123,7 @@ const MatchingTuitionBlock = ({ jobs, user }) => {
           <div className="flex flex-col gap-5  px-8 py-4">
             <div className="mx-auto">
               <img
-                src={`http://localhost:8080/${jobs?.profileimagepath}`}
+                src={`http://16.170.140.185:3000/${jobs?.profileimagepath}`}
                 className="h-[px] w-[250px]"
               />
             </div>

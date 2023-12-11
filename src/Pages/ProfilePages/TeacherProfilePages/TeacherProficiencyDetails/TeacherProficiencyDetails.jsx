@@ -9,6 +9,7 @@ import AddMoreTutoringModal from "../../../../components/AddMoreTutoringModal/Ad
 import TeacherSegmentList from "./TeacherSegmentList/TeacherSegmentList";
 import { FaEdit } from "react-icons/fa";
 import UpdateTeacherProf from "./UpdateTeacherProf/UpdateTeacherProf";
+import instance from "../../../../config/axios.config";
 
 const TeacherProficiencyDetails = () => {
   const { user } = useAuthChanged();
@@ -25,9 +26,9 @@ const TeacherProficiencyDetails = () => {
           const dataValue = data.find(
             (item) => item?.name.toLowerCase() == "teacherlocation"
           );
-          axios
+          instance
             .get(
-              `http://localhost:8080/api/teacherproficiency/${user?.userid}?locationId=${dataValue?.value}`
+              `/api/teacherproficiency/${user?.userid}?locationId=${dataValue?.value}`
             )
             .then((res) => {
               if (res?.data) {
@@ -40,13 +41,13 @@ const TeacherProficiencyDetails = () => {
 
   useEffect(() => {
     if (user?.userid) {
-      axios
-        .get(`http://localhost:8080/api/teachertraininglevel/${user?.userid}`)
+      instance
+        .get(`/api/teachertraininglevel/${user?.userid}`)
         .then((res) => {
           if (res?.data?.success) {
             const segmentData = res?.data?.data;
-            axios
-              .get(`http://localhost:8080/api/teachersubject/${user?.userid}`)
+            instance
+              .get(`/api/teachersubject/${user?.userid}`)
               .then((subRes) => {
                 const subjectData = subRes?.data;
                 const segmentBlock = segmentData.map((segment) => {

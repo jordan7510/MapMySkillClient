@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import instance from '../../../../config/axios.config';
 
 const Teaches = ({ tutorsData }) => {
     const { id } = useParams();
@@ -10,13 +11,13 @@ const Teaches = ({ tutorsData }) => {
   
     useEffect(() => {
       if (id) {
-        axios
-          .get(`http://localhost:8080/api/teachertraininglevel/${id}`)
+        instance
+          .get(`/api/teachertraininglevel/${id}`)
           .then((res) => {
             if (res?.data?.success) {
               const segmentData = res?.data?.data;
-              axios
-                .get(`http://localhost:8080/api/teachersubject/${id}`)
+              instance
+                .get(`/api/teachersubject/${id}`)
                 .then((subRes) => {
                  
                   const subjectData = subRes?.data;

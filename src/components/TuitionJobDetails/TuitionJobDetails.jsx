@@ -6,6 +6,7 @@ import TutorJobBySegment from "./SuggestSidebar/TutorJobBySegment/TutorJobBySegm
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import ReviewCards from "../ReviewCards/ReviewCards";
+import instance from "../../config/axios.config";
 const TuitionJobDetails = () => {
   const tuitionID = useParams();
 
@@ -16,8 +17,8 @@ const TuitionJobDetails = () => {
   useEffect(() => {
     if (tuitionID?.id) {
       console.log(tuitionID.id);
-      axios
-        .get(`http://localhost:8080/api/studentlevel/findbyid/${tuitionID?.id}`)
+      instance
+        .get(`/api/studentlevel/findbyid/${tuitionID?.id}`)
         .then((res) => {
           if (res?.data?.success) {
             setTuitionDetails(res?.data?.data);

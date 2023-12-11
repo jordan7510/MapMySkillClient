@@ -6,6 +6,7 @@ import ButtonSubmit from "../../../components/ButtonSubmit/ButtonSubmit";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import instance from "../../../config/axios.config";
 const SignIn = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -20,8 +21,8 @@ const SignIn = () => {
       password,
     };
     //console.log(loginUser);
-    axios
-      .post("http://localhost:8080/api/users/login", loginUser)
+    instance
+      .post("/api/users/login", loginUser)
       .then((res) => {
         if (res.data.success) {
           setError("");

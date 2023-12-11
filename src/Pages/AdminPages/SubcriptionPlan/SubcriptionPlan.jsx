@@ -6,6 +6,7 @@ import AddSubcription from "../../../components/Subcriptions/AddSubcription";
 import UpdateSubscription from "../../../components/Subcriptions/UpdateSubscription";
 import Swal from "sweetalert2";
 import axios from "axios";
+import instance from "../../../config/axios.config";
 
 const SubcriptionPlan = () => {
   const [checked, setChecked] = useState(false);
@@ -37,9 +38,9 @@ const SubcriptionPlan = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         console.log(rowValue, "row,value");
-        axios
+        instance
           .delete(
-            `http://localhost:8080/api/subscriptionplans/${rowValue?.planid}`
+            `/api/subscriptionplans/${rowValue?.planid}`
           )
           .then((res) => {
             if (res?.data?.affectedRows > 0) {

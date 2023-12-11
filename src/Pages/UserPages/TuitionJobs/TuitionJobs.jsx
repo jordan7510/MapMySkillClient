@@ -3,6 +3,7 @@ import TuitionJobsFilter from "./TuitionJobsFilter/TuitionJobsFilter";
 import MatchingTuitionBlock from "../../../components/MatchingTuitionBlock/MatchingTuitionBlock";
 import axios from "axios";
 import useAuthChanged from "../../../Hooks/useAuthChanged";
+import instance from "../../../config/axios.config";
 
 const TuitionJobs = () => {
   const { user } = useAuthChanged();
@@ -10,8 +11,8 @@ const TuitionJobs = () => {
   const [filteredTuitionJobs, setFilteredTuitionJobs] = useState([]);
   useEffect(() => {
     if (user?.userid) {
-      axios
-        .get(`http://localhost:8080/api/studentlevel?user=${user?.userid}`)
+      instance
+        .get(`/api/studentlevel?user=${user?.userid}`)
         .then((res) => {
           if (res.statusText == "OK") {
             setTuitionJobs(res?.data);

@@ -17,6 +17,7 @@ import DateOfBirthPicker from "../../../../../components/DateOfBirthPicker/DateO
 import ButtonSubmit from "../../../../../components/ButtonSubmit/ButtonSubmit";
 import axios from "axios";
 import Swal from "sweetalert2";
+import instance from "../../../../../config/axios.config";
 
 const UpdateTeacherPersonalInformation = ({ user, personalInfo }) => {
   console.log("userinfo", user);
@@ -55,9 +56,9 @@ const UpdateTeacherPersonalInformation = ({ user, personalInfo }) => {
 
     console.log("personalInformationPayload", personalInformationPayload);
 
-    axios
+    instance
       .put(
-        `http://localhost:8080/api/personalinfo/${userid}`,
+        `/api/personalinfo/${userid}`,
         personalInformationPayload
       )
       .then((response) => {

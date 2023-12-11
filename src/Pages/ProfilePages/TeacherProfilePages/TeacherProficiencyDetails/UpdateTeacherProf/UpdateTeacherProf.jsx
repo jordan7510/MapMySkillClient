@@ -8,6 +8,7 @@ import LoadingProgress from "../../../../../components/LoadingProgress/LoadingPr
 import axios from "axios";
 import Swal from "sweetalert2";
 import useFetchValue from "../../../../../Hooks/useFetchValue";
+import instance from "../../../../../config/axios.config";
 
 const UpdateTeacherProf = ({ segmentsData,setEdit, isEdit, ProficiencyDetails }) => {
   const { user } = useAuthChanged();
@@ -43,23 +44,23 @@ const UpdateTeacherProf = ({ segmentsData,setEdit, isEdit, ProficiencyDetails })
           const dataValue = data.find(
             (item) => item?.name.toLowerCase() == "teacherlocation"
           );
-          axios
+          instance
             .delete(
-              `http://localhost:8080/api/teachertraininglevel/delete/${user?.userid}/${dataValue?.value}`
+              `/api/teachertraininglevel/delete/${user?.userid}/${dataValue?.value}`
             )
             .then((res) => {
               if (res.data.success) {
-                axios
+                instance
                   .post(
-                    "http://localhost:8080/api/teachertraininglevel",
+                    "/api/teachertraininglevel",
                     blocks
                   )
                   .then((boardres) => {
                     if (boardres.data.success) {
                       console.log(blocks);
-                      axios
+                      instance
                         .post(
-                          "http://localhost:8080/api/teachersubject",
+                          "/api/teachersubject",
                           blocks
                         )
                         .then((subjectRes) => {
@@ -69,9 +70,9 @@ const UpdateTeacherProf = ({ segmentsData,setEdit, isEdit, ProficiencyDetails })
                               listitemid: teachingLocation,
                               listid,
                             };
-                            axios
+                            instance
                               .post(
-                                "http://localhost:8080/api/systemlistdata",
+                                "/api/systemlistdata",
                                 teachingLocationPayload
                               )
                               .then((teachingLocationres) => {
@@ -86,9 +87,9 @@ const UpdateTeacherProf = ({ segmentsData,setEdit, isEdit, ProficiencyDetails })
                                     trainingapproach,
                                     expinyear,
                                   };
-                                  axios
+                                  instance
                                     .post(
-                                      "http://localhost:8080/api/teacherproficiency",
+                                      "/api/teacherproficiency",
                                       proficiencyPayload
                                     )
                                     .then((proficiencyres) => {

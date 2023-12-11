@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import useAuthChanged from "../../../../../Hooks/useAuthChanged";
 import useFetchValue from "../../../../../Hooks/useFetchValue";
 import axios from "axios";
+import instance from "../../../../../config/axios.config";
 
 function TeacherAddressEditForm({
   userDetails,
@@ -202,9 +203,9 @@ function TeacherAddressEditForm({
         confirmButtonText: "Yes, update it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          axios
+          instance
             .put(
-              `http://localhost:8080/api/users/updateByUserId/${user.userid}`,
+              `/api/users/updateByUserId/${user.userid}`,
               userPayload
             )
             .then((res) => {
@@ -220,22 +221,22 @@ function TeacherAddressEditForm({
                   address1: address1,
                   address2: address2,
                 };
-                axios
+                instance
                   .put(
-                    `http://localhost:8080/api/profile/${user.userid}`,
+                    `/api/profile/${user.userid}`,
                     profilePayload
                   )
                   .then((res) => {
                     if (res.data.success) {
-                      axios
+                      instance
                         .delete(
-                          `http://localhost:8080/api/address/${user.userid}`
+                          `/api/address/${user.userid}`
                         )
                         .then((deleteres) => {
                           if (deleteres?.data?.success) {
-                            axios
+                            instance
                               .post(
-                                `http://localhost:8080/api/address`,
+                                `/api/address`,
                                 userAddress
                               )
                               .then((res) => {

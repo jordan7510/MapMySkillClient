@@ -3,6 +3,7 @@ import img from "../../../../src/assets/images/profile.png"
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import axios from 'axios';
 import useAuthChanged from '../../../Hooks/useAuthChanged';
+import instance from '../../../config/axios.config';
 
 function StudentPreference() {
     const { user } = useAuthChanged()
@@ -13,8 +14,7 @@ function StudentPreference() {
     // ======================User Info get start====================
     useEffect(() => {
         if (user?.userid) {
-            axios
-                .get(`http://localhost:8080/api/studentlevel/${user?.userid}`)
+            instance.get(`/api/studentlevel/${user?.userid}`)
                 .then((response) => {
                     if (response?.data) {
                         // console.log(response?.data);

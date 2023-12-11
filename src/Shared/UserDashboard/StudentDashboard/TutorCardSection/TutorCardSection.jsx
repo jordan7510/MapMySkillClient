@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import TutorCard from "../TutorCard/TutorCard";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import instance from "../../../../config/axios.config";
 
 const TutorCardSection = ({ studentLevelSegmentId }) => {
 
@@ -23,8 +24,8 @@ const TutorCardSection = ({ studentLevelSegmentId }) => {
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/users/find-teachers-by-role/3")
+    instance
+      .get("/api/users/find-teachers-by-role/3")
       .then((response) => {
         response.data.forEach((tutor) => {
           const tAge = covertAge(tutor.dob);

@@ -12,6 +12,7 @@ import useFetchValue from "../../../Hooks/useFetchValue";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import instance from '../../../config/axios.config';
 
 
 
@@ -47,8 +48,8 @@ const HireTutor = () => {
 
     //============Options from database for fields- START==================
     useEffect(() => {
-        axios
-            .get(`http://localhost:8080/api/segment`)
+        instance
+            .get(`/api/segment`)
             .then((response) => {
                 // console.log(response.data);
                 if (response?.data) {
@@ -62,8 +63,8 @@ const HireTutor = () => {
 
     const handleSegmentChange = (value) => {
         // Fetch subjects based on the selected segment
-        axios
-            .get(`http://localhost:8080/api/subject/bysegment/${value}`)
+        instance
+            .get(`/api/subject/bysegment/${value}`)
             .then((response) => {
                 setSubjects(response.data);
             })

@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import Switch from "@mui/material/Switch";
 import axios from "axios";
 import Swal from "sweetalert2";
+import instance from "../../config/axios.config";
 const PlanStatus = ({ row, reFetch, setRefetch }) => {
   const handleChange = (event, rowVlaue) => {
     const switchValue = event?.target?.checked;
     const planid = rowVlaue?.original?.planid;
 
-    axios
-      .put(`http://localhost:8080/api/subscriptionplans/update/${planid}`, {
+    instance
+      .put(`/api/subscriptionplans/update/${planid}`, {
         status: switchValue,
       })
       .then((res) => {

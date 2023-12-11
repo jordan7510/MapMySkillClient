@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import useAuthChanged from '../../Hooks/useAuthChanged';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import instance from '../../config/axios.config';
 
 const ProfileResetPassword = () => {
 
@@ -31,14 +32,14 @@ const ProfileResetPassword = () => {
             confirmButtonText: 'Yes, update it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.post(`http://localhost:8080/api/users/checkpassword/${user?.userid}`, oldPasswordPayload)
+                instance.post(`/api/users/checkpassword/${user?.userid}`, oldPasswordPayload)
                     .then((response) => {
                         if (response?.statusText) {
                             if (newPassword === conNewPassword) {
                                 const passwordPayload = {
                                     password: newPassword
                                 }
-                                axios.put(`http://localhost:8080/api/users/updatepassword/${user?.userid}`, passwordPayload)
+                                instance.put(`/api/users/updatepassword/${user?.userid}`, passwordPayload)
                                     .then((response) => {
                                         //console.log("password changed", response);
                                           Swal.fire(

@@ -17,6 +17,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import usePlanDataValue from "../../../Hooks/usePlanDataValue";
 import Swal from "sweetalert2";
+import instance from "../../../config/axios.config";
 const TuitionJobDetailsBlock = ({ tuitionDetails, refetch, setRefetch }) => {
   const [isShowContact, setShowContact] = useState(false);
   const { user } = useAuthChanged();
@@ -28,8 +29,8 @@ const TuitionJobDetailsBlock = ({ tuitionDetails, refetch, setRefetch }) => {
   const [isOpen, setOpen] = useState(false);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/contactsviewed/${user?.userid}`)
+    instance
+      .get(`/api/contactsviewed/${user?.userid}`)
       .then((response) => {
         console.log("uncloked response", response);
         const unlock = response.data.map((item) => {
@@ -43,9 +44,9 @@ const TuitionJobDetailsBlock = ({ tuitionDetails, refetch, setRefetch }) => {
   }, [user, refetch]);
 
   const handleUnlock = () => {
-    axios
+    instance
       .get(
-        `http://localhost:8080/api/subscriptionusers/${user?.userid}?plantype=${plantype}`
+        `/api/subscriptionusers/${user?.userid}?plantype=${plantype}`
       )
       .then((res1) => {
         console.log("unlock res1", res1.data);
@@ -73,18 +74,18 @@ const TuitionJobDetailsBlock = ({ tuitionDetails, refetch, setRefetch }) => {
             viewedusers: tuitionDetails.userid,
           };
 
-          axios
+          instance
             .post(
-              `http://localhost:8080/api/contactsviewed`,
+              `/api/contactsviewed`,
               contactViewedPayload
             )
             .then((res2) => {
               console.log(res2);
 
               if (res2.statusText == "OK") {
-                axios
+                instance
                   .put(
-                    `http://localhost:8080/api/subscriptionusers/update/${res1?.data[0]?.subscriptionusers_id}`
+                    `/api/subscriptionusers/update/${res1?.data[0]?.subscriptionusers_id}`
                   )
                   .then((res3) => {
                     console.log("plan update res", res3);

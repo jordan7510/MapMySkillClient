@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import useAuthChanged from "../../../../Hooks/useAuthChanged";
 import axios from "axios";
 import ReviewedDetailsCard from "../../../../components/ReviewedDetailsCard/ReviewedDetailsCard";
+import instance from "../../../../config/axios.config";
 
 const TeacherAllReviews = () => {
   const { user } = useAuthChanged();
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
     if (user) {
-      axios(`http://localhost:8080/api/userreviews/${user?.userid}`).then(
+      instance(`/api/userreviews/${user?.userid}`).then(
         (res) => {
           if (res?.data?.success) {
             setReviews(res?.data?.data);

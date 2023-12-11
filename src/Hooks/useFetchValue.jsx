@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import instance from "../config/axios.config";
 
 
 const useFetchValue = (itemValue) => {
@@ -10,7 +11,7 @@ const useFetchValue = (itemValue) => {
      .then(res => (res.json()))
      .then(data=>{
       const dataValue = data.find(item => item?.name.toLowerCase() == itemValue.toLowerCase())
-      axios.get('http://localhost:8080/api/systemlistitem')
+      instance.get('/api/systemlistitem')
       .then(res => {
         if(res.statusText == "OK"){
           const allValue = res.data.filter(item => item?.listid == dataValue.value)

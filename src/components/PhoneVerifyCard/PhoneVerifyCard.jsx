@@ -9,6 +9,7 @@ import LoadingProgress from "../LoadingProgress/LoadingProgress";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import instance from "../../config/axios.config";
 
 const PhoneVerifyCard = ({ phone, userId, setRefetch, refetch, mobile }) => {
   const [isShowOtpInput, setShowOtpInput] = useState(false);
@@ -61,8 +62,8 @@ const PhoneVerifyCard = ({ phone, userId, setRefetch, refetch, mobile }) => {
           const phoneVerify = {
             isContactVarified: "Y",
           };
-          axios
-            .put(`http://localhost:8080/api/profile/${userId}`, phoneVerify)
+          instance
+            .put(`/api/profile/${userId}`, phoneVerify)
             .then((res) => {
               if (res.data.success) {
                 setLoading(false);
@@ -116,8 +117,8 @@ const PhoneVerifyCard = ({ phone, userId, setRefetch, refetch, mobile }) => {
       return;
     }
 
-    axios
-      .put(`http://localhost:8080/api/users/updateMobileEmail/${userId}`, {
+    instance
+      .put(`/api/users/updateMobileEmail/${userId}`, {
         mobile: mobile,
       })
       .then((res) => {
@@ -126,8 +127,8 @@ const PhoneVerifyCard = ({ phone, userId, setRefetch, refetch, mobile }) => {
             primaryContact: mobile,
             isContactVarified: "N",
           };
-          axios
-            .put(`http://localhost:8080/api/profile/${userId}`, phoneUpdate)
+          instance
+            .put(`/api/profile/${userId}`, phoneUpdate)
             .then((res) => {
               if (res.data.success) {
                 console.log(res);

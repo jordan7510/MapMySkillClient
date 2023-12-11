@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import usePlanDataValue from "../../../Hooks/usePlanDataValue";
 import Swal from "sweetalert2";
+import instance from "../../../config/axios.config";
 const TeacherViewCard = ({ tutorsData, refetch, setRefetch }) => {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -37,8 +38,8 @@ const TeacherViewCard = ({ tutorsData, refetch, setRefetch }) => {
   }, [tutorsData]);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/contactsviewed/${user?.userid}`)
+    instance
+      .get(`/api/contactsviewed/${user?.userid}`)
       .then((response) => {
         console.log("uncloked response", response);
         // response?.data ? setContactsUnlocked(response?.data) : null
@@ -57,9 +58,9 @@ const TeacherViewCard = ({ tutorsData, refetch, setRefetch }) => {
   };
 
   const handleUnlock = () => {
-    axios
+    instance
       .get(
-        `http://localhost:8080/api/subscriptionusers/${user?.userid}?plantype=${plantype}`
+        `/api/subscriptionusers/${user?.userid}?plantype=${plantype}`
       )
       .then((res1) => {
         console.log("unlock res1", res1.data);
@@ -87,18 +88,18 @@ const TeacherViewCard = ({ tutorsData, refetch, setRefetch }) => {
             viewedusers: tutorsData[0].userid,
           };
 
-          axios
+          instance
             .post(
-              `http://localhost:8080/api/contactsviewed`,
+              `/api/contactsviewed`,
               contactViewedPayload
             )
             .then((res2) => {
               console.log(res2);
 
               if (res2.statusText == "OK") {
-                axios
+                instance
                   .put(
-                    `http://localhost:8080/api/subscriptionusers/update/${res1?.data[0]?.subscriptionusers_id}`
+                    `/api/subscriptionusers/update/${res1?.data[0]?.subscriptionusers_id}`
                   )
                   .then((res3) => {
                     console.log("plan update res", res3);
@@ -128,7 +129,7 @@ const TeacherViewCard = ({ tutorsData, refetch, setRefetch }) => {
               <img
                 height="300px"
                 width="250px"
-                src={`http://localhost:8080/${tutorsData[0]?.profileimagepath}`}
+                src={`http://16.170.140.185:3000/${tutorsData[0]?.profileimagepath}`}
                 alt="teacher-image"
               ></img>
             </div>

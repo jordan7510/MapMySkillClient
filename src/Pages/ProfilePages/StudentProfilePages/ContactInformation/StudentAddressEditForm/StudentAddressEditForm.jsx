@@ -5,6 +5,7 @@ import { TextField } from "@mui/material";
 import useAuthChanged from "../../../../../Hooks/useAuthChanged";
 import Swal from "sweetalert2";
 import axios from "axios";
+import instance from "../../../../../config/axios.config";
 
 const StudentAddressEditForm = ({
   userDetailsTwo,
@@ -108,9 +109,9 @@ const StudentAddressEditForm = ({
         confirmButtonText: "Yes, update it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          axios
+          instance
             .put(
-              `http://localhost:8080/api/users/updateByUserId/${user.userid}`,
+              `/api/users/updateByUserId/${user.userid}`,
               userPayload
             )
             .then((res) => {
@@ -126,9 +127,9 @@ const StudentAddressEditForm = ({
                   address1: address1,
                   address2: address2,
                 };
-                axios
+                instance
                   .put(
-                    `http://localhost:8080/api/profile/${user.userid}`,
+                    `/api/profile/${user.userid}`,
                     profilePayload
                   )
                   .then((res) => {
@@ -142,9 +143,9 @@ const StudentAddressEditForm = ({
                         country: postalAddress?.Country,
                         pin: postalAddress?.Pincode,
                       };
-                      axios
+                      instance
                         .put(
-                          `http://localhost:8080/api/address/updateByUserId/${user.userid}`,
+                          `/api/address/updateByUserId/${user.userid}`,
                           addressPayload
                         )
                         .then((response) => {

@@ -5,6 +5,7 @@ import useFetchValue from "../../Hooks/useFetchValue";
 import axios from "axios";
 import Swal from "sweetalert2";
 import useAuthChanged from "../../Hooks/useAuthChanged";
+import instance from "../../config/axios.config";
 
 const NidFeedback = ({
   isFeedbackShow,
@@ -33,9 +34,9 @@ const NidFeedback = ({
     };
 
     if (ImageData?.userid) {
-      axios
+      instance
         .put(
-          `http://localhost:8080/api/documents/update/${ImageData?.userid}`,
+          `/api/documents/update/${ImageData?.userid}`,
           payload
         )
         .then((res) => {

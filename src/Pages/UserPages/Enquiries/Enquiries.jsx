@@ -6,6 +6,7 @@ import useAuthChanged from '../../../Hooks/useAuthChanged';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
+import instance from '../../../config/axios.config';
 
 
 const Enquiries = () => {
@@ -14,7 +15,7 @@ const Enquiries = () => {
   const [enquiriesData, setEnquiriesData] = useState([])
 
   useEffect(() => {
-      axios.get(`http://localhost:8080/api/messagetoteacher/${user?.userid}`)
+      instance.get(`/api/messagetoteacher/${user?.userid}`)
         .then((res) => {
           // console.log("enquiries", res.data)
          setEnquiriesData(res?.data)

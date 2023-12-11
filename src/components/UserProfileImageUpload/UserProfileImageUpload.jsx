@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import useAuthChanged from "../../Hooks/useAuthChanged";
 import UploadButton from "../UploadButton/UploadButton";
 import img from "../../assets/images/profile.png";
+import instance from "../../config/axios.config";
 
 const UserProfileImageUpload = ({ userDetails, refetch, setRefetch }) => {
   const { user } = useAuthChanged();
@@ -25,8 +26,8 @@ const UserProfileImageUpload = ({ userDetails, refetch, setRefetch }) => {
     formData.append("profileimage", file);
     formData.append("path", userDetails?.profileimagepath);
 
-    axios
-      .put(`http://localhost:8080/api/profile/upload/${user?.userid}`, formData)
+    instance
+      .put(`/api/profile/upload/${user?.userid}`, formData)
       .then((response) => {
         console.log(response);
         if (response?.data?.data?.res?.affectedRows > 0) {
@@ -52,7 +53,7 @@ const UserProfileImageUpload = ({ userDetails, refetch, setRefetch }) => {
           alt={userDetails?.poc}
           src={
             userDetails?.profileimagepath
-              ? `http://localhost:8080/${userDetails?.profileimagepath}`
+              ? `http://16.170.140.185:3000/${userDetails?.profileimagepath}`
               : img
           }
           sx={{ width: 80, height: 80 }}

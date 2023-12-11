@@ -5,13 +5,14 @@ import ReviewCards from '../../ReviewCards/ReviewCards';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
+import instance from '../../../config/axios.config';
 
 
 const TeacherDetails = ({tutorsData,id}) => {
     const [reviews, setReviews] = useState([]);
     useEffect(() => {
       if (id) {
-        axios(`http://localhost:8080/api/userreviews/${id}`).then(
+        instance(`/api/userreviews/${id}`).then(
           (res) => {
             if (res?.data?.success) {
               setReviews(res?.data?.data);

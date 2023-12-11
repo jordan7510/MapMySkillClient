@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import useGetValue from "../../../Hooks/useGetValue";
 import { Navigate, useNavigate } from "react-router-dom";
 import usePlanDataValue from "../../../Hooks/usePlanDataValue";
+import instance from "../../../config/axios.config";
 
 function SubscriptionCard({ items }) {
   const { user } = useAuthChanged();
@@ -65,8 +66,8 @@ function SubscriptionCard({ items }) {
     };
     console.log(buyPlan);
 
-    axios
-      .post(`http://localhost:8080/api/subscriptionusers`, buyPlan)
+    instance
+      .post(`/api/subscriptionusers`, buyPlan)
       .then((res) => {
         console.log(res);
         if (res?.data?.affectedRows > 0) {

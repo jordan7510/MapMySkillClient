@@ -7,6 +7,7 @@ import ButtonSubmit from "../ButtonSubmit/ButtonSubmit";
 import moment from "moment/moment";
 import axios from "axios";
 import Swal from "sweetalert2";
+import instance from "../../config/axios.config";
 const style = {
   position: "absolute",
   top: "50%",
@@ -43,8 +44,8 @@ const FeedBackModal = ({ jobs, isOpen, setOpen, user,
     };
     console.log(newReviewSubmit);
 
-    axios
-      .put("http://localhost:8080/api/userreviews", newReviewSubmit)
+    instance
+      .put("/api/userreviews", newReviewSubmit)
       .then((res) => {
         console.log(res);
         if (res?.data?.affectedRows > 0) {

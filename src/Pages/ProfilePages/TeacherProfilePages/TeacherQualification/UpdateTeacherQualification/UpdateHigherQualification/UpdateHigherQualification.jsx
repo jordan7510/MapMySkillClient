@@ -124,17 +124,7 @@ const UpdateHigherQualification = ({
 
   const handleDeleteBlock = (index, educationId) => {
     if (educationId) {
-      // axios
-      //   .delete(`http://localhost:8080/api/teachereducation/${educationId}`)
-      //   .then((res) => {
-      //     if (res?.data) {
-      //       const updatedBlocks = [...blocks];
-      //       updatedBlocks.splice(index, 1);
-      //       setBlocks(updatedBlocks);
-      //       setRefetch(!Refetch);
-      //     }
-      //   });
-
+     
       const updatedBlocks = [...blocks];
       updatedBlocks[index].dbstatus = "d";
       setBlocks(updatedBlocks);

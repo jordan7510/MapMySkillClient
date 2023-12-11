@@ -14,6 +14,7 @@ import useFetchValue from "../../../../../Hooks/useFetchValue";
 import useAuthChanged from "../../../../../Hooks/useAuthChanged";
 import axios from "axios";
 import Swal from "sweetalert2";
+import instance from "../../../../../config/axios.config";
 
 const SendMessage = ({ segmentData, id }) => {
   console.log(segmentData, "segment data");
@@ -82,8 +83,8 @@ const SendMessage = ({ segmentData, id }) => {
       budget,
     };
 
-    axios
-      .post(`http://localhost:8080/api/messagetoteacher`, newRequrement)
+    instance
+      .post(`/api/messagetoteacher`, newRequrement)
       .then((res) => {
         if (res?.data?.success) {
           Swal.fire({

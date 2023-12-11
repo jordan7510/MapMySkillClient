@@ -11,6 +11,7 @@ import useFetchValue from "../../Hooks/useFetchValue";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import useGetValue from "../../Hooks/useGetValue";
 import usePlanDataValue from "../../Hooks/usePlanDataValue";
+import instance from "../../config/axios.config";
 
 const SubcriptionPlansTable = ({
   handleEditElement,
@@ -25,7 +26,7 @@ const SubcriptionPlansTable = ({
   const { itemValue: perclickValue } = usePlanDataValue("perclick");
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/subscriptionplans/").then((res) => {
+    instance.get("/api/subscriptionplans/").then((res) => {
       console.log(res);
       if (res.data) {
         console.log(res);

@@ -4,6 +4,7 @@ import MaterialReactTable from "material-react-table";
 import { FaEye } from "react-icons/fa";
 import { useEffect } from "react";
 import axios from "axios";
+import instance from "../../config/axios.config";
 const UserNameTable = ({ handleViewCard,reFetch }) => {
 
   const [userCardData,setUserCardData] = useState([]);
@@ -11,7 +12,7 @@ const UserNameTable = ({ handleViewCard,reFetch }) => {
 
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/documents`)
+    instance.get(`/api/documents`)
     .then(res => {
       console.log(res);
       if(res?.data?.success){

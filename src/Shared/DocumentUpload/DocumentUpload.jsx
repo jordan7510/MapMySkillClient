@@ -17,6 +17,7 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import useGetValue from "../../Hooks/useGetValue";
 import { IoIosCloseCircle } from "react-icons/io";
 import { FcAlarmClock, FcOk } from "react-icons/fc";
+import instance from "../../config/axios.config";
 
 const DocumentUpload = () => {
   const { user } = useAuthChanged();
@@ -34,8 +35,8 @@ const DocumentUpload = () => {
 
   useEffect(() => {
     if (user?.userid) {
-      axios
-        .get(`http://localhost:8080/api/documents/${user?.userid}`)
+      instance
+        .get(`/api/documents/${user?.userid}`)
         .then((response) => {
           console.log("Image DB Response",response);
           if (response.data.success) {
@@ -96,8 +97,8 @@ const DocumentUpload = () => {
     formData.append("documentnameB", backFile.name);
     formData.append("verifystatus", status);
 
-    axios
-      .post(`http://localhost:8080/api/documents/upload`, formData)
+    instance
+      .post(`/api/documents/upload`, formData)
       .then((response) => {
         if (response?.data?.result?.affectedRows > 0) {
           Swal.fire({
@@ -171,7 +172,7 @@ const DocumentUpload = () => {
               <p>Front Image</p>
               {imageFront.length > 0 ? (
                 <div className="border-2">
-                  <img src={`http://localhost:8080/${imageFront}`}></img>
+                  <img src={`http://16.170.140.185:3000/${imageFront}`}></img>
                 </div>
               ) : (
                 <Skeleton variant="rectangular" width={210} height={118} />
@@ -181,7 +182,7 @@ const DocumentUpload = () => {
               <p>Back Image</p>
               {imageBack.length > 0 ? (
                 <div className="border-2">
-                  <img src={`http://localhost:8080/${imageBack}`}></img>
+                  <img src={`http://16.170.140.185:3000/${imageBack}`}></img>
                 </div>
               ) : (
                 <Skeleton variant="rectangular" width={210} height={118} />
@@ -255,7 +256,7 @@ const DocumentUpload = () => {
                               selectedImage
                                 ? selectedImage
                                 : imageFront.length > 0
-                                ? `http://localhost:8080/${imageFront}`
+                                ? `http://16.170.140.185:3000/${imageFront}`
                                 : ""
                             }
                           ></img>
@@ -279,7 +280,7 @@ const DocumentUpload = () => {
                               selectedImageBack
                                 ? selectedImageBack
                                 : imageBack.length > 0
-                                ? `http://localhost:8080/${imageBack}`
+                                ? `http://16.170.140.185:3000/${imageBack}`
                                 : ""
                             }
                           ></img>

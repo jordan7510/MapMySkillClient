@@ -15,6 +15,7 @@ import StudentAddressDetails from "../../../../components/StudentAddressDetails/
 import TeacherAddressDetails from "../../../../components/TeacherAddressDetails/TeacherAddressDetails";
 import TeacherAddressEditForm from "./TeacherAddressEditForm/TeacherAddressEditForm";
 import StudentAddressEditForm from "./StudentAddressEditForm/StudentAddressEditForm";
+import instance from "../../../../config/axios.config";
 
 function ContactInformation() {
   const { user } = useAuthChanged();
@@ -31,21 +32,21 @@ function ContactInformation() {
   // ======================User Info get start====================
   useEffect(() => {
     if (user?.userid) {
-      axios
-        .get(`http://localhost:8080/api/profile/byUserId/${user?.userid}`)
+      instance
+        .get(`/api/profile/byUserId/${user?.userid}`)
         .then((response) => {
           console.log(response,"hello world");
           setUserDetails(response.data)
           if (response.statusText == "OK") {
-            axios
-              .get(`http://localhost:8080/api/users/${user?.userid}`)
+            instance
+              .get(`/api/users/${user?.userid}`)
               .then((response) => {
                 // console.log("user response",response);
 
                 response?.data ? setUserDetailsTwo(response?.data) : null;
                 if (response.statusText == "OK") {
-                  axios
-                    .get(`http://localhost:8080/api/address/${user?.userid}`)
+                  instance
+                    .get(`/api/address/${user?.userid}`)
                     .then((response) => {
                       if (user?.roleid == 3) {
                         setTeacherAddress(response?.data?.data);

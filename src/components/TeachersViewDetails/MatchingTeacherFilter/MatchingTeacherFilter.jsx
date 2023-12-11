@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import useFetchValue from "../../../Hooks/useFetchValue";
+import instance from "../../../config/axios.config";
 
 const MatchingTeacherFilter = ({ tutorsData, handleFilterData }) => {
   const [segments, setSegments] = useState([]);
   const [selectedSegment, setSelectedSegment] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/segment").then((res) => {
+    instance.get("/api/segment").then((res) => {
       setSegments(res?.data);
     });
   }, []);

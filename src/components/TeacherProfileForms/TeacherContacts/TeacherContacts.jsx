@@ -14,6 +14,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import useFetchValue from "../../../Hooks/useFetchValue";
 import { useNavigate } from "react-router-dom";
+import instance from "../../../config/axios.config";
 const TeacherContacts = () => {
   const [isPermanentddress, setPermanentddress] = useState("y");
   const [userInfo, setUserInfo] = useState({});
@@ -44,9 +45,9 @@ const TeacherContacts = () => {
     const userInfoParse = JSON.parse(userInfoStore);
     if (userInfoStore) {
       setUserId(userInfoParse?.userID);
-      axios
+      instance
         .get(
-          `http://localhost:8080/api/profile/byUserId/${userInfoParse?.userID}`
+          `/api/profile/byUserId/${userInfoParse?.userID}`
         )
         .then((res) => {
           setUserInfo(res.data);
@@ -143,12 +144,12 @@ const TeacherContacts = () => {
     };
 
     if (userId) {
-      axios
-        .put(`http://localhost:8080/api/profile/${userId}`, contactInfoPayload)
+      instance
+        .put(`/api/profile/${userId}`, contactInfoPayload)
         .then((res) => {
           if (res.data.success) {
-            axios
-              .post("http://localhost:8080/api/address", userAddress)
+            instance
+              .insta("/api/address", userAddress)
               .then((res) => {
                 if (res.data.success) {
                   const personalInformationPayload = {
@@ -162,9 +163,9 @@ const TeacherContacts = () => {
                     googleLink: googlelink,
                     dateofbirth: dateofBirth,
                   };
-                  axios
+                  instance
                     .post(
-                      "http://localhost:8080/api/personalinfo",
+                      "/api/personalinfo",
                       personalInformationPayload
                     )
                     .then((res) => {

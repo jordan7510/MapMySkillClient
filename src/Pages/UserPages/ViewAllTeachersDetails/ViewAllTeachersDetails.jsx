@@ -9,6 +9,7 @@ import TeachersViewDetails from "../../../components/TeachersViewDetails/Teacher
 import RelatedTeachers from "../../../components/TeachersViewDetails/RelatedTeachers/RelatedTeachers";
 import MatchingTeacherFilter from "../../../components/TeachersViewDetails/MatchingTeacherFilter/MatchingTeacherFilter";
 import AllTeacherViewCard from "./AllTeacherViewCard/AllTeacherViewCard";
+import instance from "../../../config/axios.config";
 
 const ViewAllTeachersDetails = () => {
   const [tutorsData, setTutorsData] = useState([]);
@@ -28,8 +29,8 @@ const ViewAllTeachersDetails = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/users/findallbyrole/3`)
+    instance
+      .get(`/api/users/findallbyrole/3`)
       .then((response) => {
         response.data.forEach((tutor) => {
           const tAge = covertAge(tutor.dob);

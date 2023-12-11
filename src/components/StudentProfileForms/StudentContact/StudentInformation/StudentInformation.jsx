@@ -22,6 +22,7 @@ import LocationByPincode from "../../../LocationByPincode/LocationByPincode";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import ReactSearchcomplete from "../../../ReactSearchcomplete/ReactSearchcomplete";
 import axios from "axios";
+import instance from "../../../../config/axios.config";
 
 const StudentInformation = ({
   userInfo,
@@ -53,8 +54,8 @@ const StudentInformation = ({
 
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/segment`)
+    instance
+      .get(`/api/segment`)
       .then((response) => {
         // console.log(response.data);
         if (response?.data) {

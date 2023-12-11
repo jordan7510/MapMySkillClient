@@ -25,6 +25,7 @@ import NextButton from "../../NextButton/NextButton";
 import Swal from "sweetalert2";
 import { StepperProvider } from "../../../Providers/ShowSteperProvider";
 import { json } from "react-router-dom";
+import instance from "../../../config/axios.config";
 const TeachingExperience = () => {
   const [user, setUser] = useState({});
   const { step, setStep } = useContext(StepperProvider);
@@ -74,13 +75,13 @@ const TeachingExperience = () => {
     console.log("university location", location);
 
     if (user) {
-      axios
-        .post("http://localhost:8080/api/teachertraininglevel", blocks)
+      instance
+        .post("/api/teachertraininglevel", blocks)
         .then((boardres) => {
           if (boardres.data.success) {
             console.log(blocks);
-            axios
-              .post("http://localhost:8080/api/teachersubject", blocks)
+            instance
+              .post("/api/teachersubject", blocks)
               .then((subjectRes) => {
                 if (subjectRes.data.success) {
                   const teachingLocationPayload = {
@@ -88,9 +89,9 @@ const TeachingExperience = () => {
                     listitemid: teachingLocation,
                     listid,
                   };
-                  axios
+                  instance
                     .post(
-                      "http://localhost:8080/api/systemlistdata",
+                      "/api/systemlistdata",
                       teachingLocationPayload
                     )
                     .then((teachingLocationres) => {
@@ -105,9 +106,9 @@ const TeachingExperience = () => {
                           trainingapproach,
                           expinyear,
                         };
-                        axios
+                        instance
                           .post(
-                            "http://localhost:8080/api/teacherproficiency",
+                            "/api/teacherproficiency",
                             proficiencyPayload
                           )
                           .then((proficiencyres) => {

@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useFetchValue from '../../../Hooks/useFetchValue';
+import instance from '../../../config/axios.config';
 
 const RequestContactInformation = () => {
     const { setStep } = useContext(ReqStepperProvider)
@@ -151,7 +152,7 @@ const RequestContactInformation = () => {
 
         const localMobile = primaryContact
 
-        axios.get(`http://localhost:8080/api/users/${email}/${primaryMob}`)
+        instance.get(`/api/users/${email}/${primaryMob}`)
             .then((response) => {
                 //console.log(response);
                 if (response?.data?.exist) {
@@ -162,7 +163,7 @@ const RequestContactInformation = () => {
                     });
                 } else if (!response?.data?.exist) {
 
-                    axios.post(`http://localhost:8080/api/users`, newUsersPayload)
+                    instance.post(`/api/users`, newUsersPayload)
                         .then((userRes) => {
                             //console.log("User created", userRes);
                            
@@ -187,7 +188,7 @@ const RequestContactInformation = () => {
                                     address2: Addressline2,
                                 };
                                 //console.log("profilePayLoad", profilePayLoad);
-                                axios.post("http://localhost:8080/api/profile", profilePayLoad)
+                                instance.post("/api/profile", profilePayLoad)
                                     .then((profileRes) => {
                                         //console.log("profile created", profileRes);
                                         if (profileRes.statusText == "OK") {
@@ -201,7 +202,7 @@ const RequestContactInformation = () => {
                                                 institutelocation: locationInstitute
                                             }
                                             //console.log("personalInfoPayload", personalInfoPayload);
-                                            axios.post("http://localhost:8080/api/studentpersonalinfo", personalInfoPayload)
+                                            instance.post("/api/studentpersonalinfo", personalInfoPayload)
                                                 .then((personalRes) => {
                                                     //console.log("Personal info created", personalRes);
                                                     if (personalRes.statusText == "OK") {
@@ -220,14 +221,14 @@ const RequestContactInformation = () => {
                                                             }
                                                         ]
                                                         //console.log("addressPayload", addressPayload);
-                                                        axios.post("http://localhost:8080/api/address", addressPayload)
+                                                        instance.post("/api/address", addressPayload)
                                                             .then((addressRes) => {
                                                                 //console.log("address created", addressRes);
                                                                 if (addressRes.statusText == "OK") {
                                                                     const studentLevelPayload = storedData[0]
                                                                     studentLevelPayload.userid = userRes?.data?.data?.id
                                                                     //console.log("studentLevelPayload", studentLevelPayload);
-                                                                    axios.post("http://localhost:8080/api/studentlevel", studentLevelPayload)
+                                                                    instance.post("/api/studentlevel", studentLevelPayload)
                                                                         .then((studentRes) => {
                                                                             //console.log("studentlevel created", studentRes);
                                                                             if (studentRes.statusText == "OK") {
@@ -235,7 +236,7 @@ const RequestContactInformation = () => {
                                                                                 studentSubjectPayload.userid = userRes?.data?.data?.id
                                                                                 //console.log("studentSubjectPayload", studentSubjectPayload);
 
-                                                                                axios.post("http://localhost:8080/api/teachersubject/studentSubject", studentSubjectPayload)
+                                                                                instance.post("/api/teachersubject/studentSubject", studentSubjectPayload)
                                                                                     .then((subRes) => {
                                                                                         //console.log("subject created", subRes);
                                                                                         if (subRes.statusText == "OK") {

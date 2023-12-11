@@ -18,6 +18,7 @@ import {
 } from "react-icons/fa";
 import useGetValue from "../../../../Hooks/useGetValue";
 import Swal from "sweetalert2";
+import instance from "../../../../config/axios.config";
 
 const AllTeacherViewCard = ({ userid, tutorsData }) => {
   const { user } = useAuthChanged();
@@ -46,9 +47,9 @@ const AllTeacherViewCard = ({ userid, tutorsData }) => {
     }
 
     userid
-      ? axios
+      ? instance
           .get(
-            `http://localhost:8080/api/users/find-teachers-by-userid/${userid}?locationId=${locationid}&languageId=${language}`
+            `/api/users/find-teachers-by-userid/${userid}?locationId=${locationid}&languageId=${language}`
           )
           .then((response) => {
             response.data ? setAllData(response.data) : null;
@@ -58,8 +59,8 @@ const AllTeacherViewCard = ({ userid, tutorsData }) => {
           })
       : null;
 
-    axios
-      .get(`http://localhost:8080/api/contactsviewed/${user?.userid}`)
+    instance
+      .get(`/api/contactsviewed/${user?.userid}`)
       .then((response) => {
         console.log("uncloked response", response);
         // response?.data ? setContactsUnlocked(response?.data) : null
@@ -74,9 +75,9 @@ const AllTeacherViewCard = ({ userid, tutorsData }) => {
   }, [userid, user?.userid, refetch]);
 
   const handleUnlock = () => {
-    axios
+    instance
       .get(
-        `http://localhost:8080/api/subscriptionusers/${user?.userid}?plantype=${plantype}`
+        `/api/subscriptionusers/${user?.userid}?plantype=${plantype}`
       )
       .then((res1) => {
         console.log("unlock res1", res1.data);
@@ -104,9 +105,9 @@ const AllTeacherViewCard = ({ userid, tutorsData }) => {
             viewedusers: tutorsData.userid,
           };
 
-          axios
+          instance
             .post(
-              `http://localhost:8080/api/contactsviewed`,
+              `/api/contactsviewed`,
               contactViewedPayload
             )
             .then((res2) => {
@@ -114,9 +115,9 @@ const AllTeacherViewCard = ({ userid, tutorsData }) => {
               console.log("plan id", res1?.data[0]?.subscriptionusers_id);
 
               if (res2.statusText == "OK") {
-                axios
+                instance
                   .put(
-                    `http://localhost:8080/api/subscriptionusers/update/${res1?.data[0]?.subscriptionusers_id}`
+                    `/api/subscriptionusers/update/${res1?.data[0]?.subscriptionusers_id}`
                   )
                   .then((res3) => {
                     console.log("plan update res", res3);
@@ -145,7 +146,7 @@ const AllTeacherViewCard = ({ userid, tutorsData }) => {
             <img
               height="300px"
               width="250px"
-              src={`http://localhost:8080/${tutorsData.profileimagepath}`}
+              src={`http://16.170.140.185:3000/${tutorsData.profileimagepath}`}
               alt="teacher-image"
             ></img>
           </div>

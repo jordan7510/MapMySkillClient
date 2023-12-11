@@ -14,6 +14,7 @@ import useGetValue from "../../../../../Hooks/useGetValue"
 import covertAge from "../../../../../Utils/CalculateAge";
 import { useState } from "react";
 import { Rating } from "@smastrom/react-rating";
+import instance from "../../../../../config/axios.config";
 const TeacherProfileCard = ({id,subjects}) => {
   let allSubjects = subjects?.flat();
   const {itemValue:languageValue} = useGetValue("language")
@@ -22,7 +23,7 @@ const TeacherProfileCard = ({id,subjects}) => {
 
   useEffect(() => {
     if(id && languageValue && interestedInValue){
-      axios.get(`http://localhost:8080/api/users/find-teachers-by-userid/${id}?locationId=${interestedInValue}&languageId=${languageValue}`)
+      instance.get(`/api/users/find-teachers-by-userid/${id}?locationId=${interestedInValue}&languageId=${languageValue}`)
           .then((response) => {
               response.data.forEach(tutor => {
                   const tAge = covertAge(tutor.dob)
@@ -44,7 +45,7 @@ const TeacherProfileCard = ({id,subjects}) => {
     <div className="p-5 border mt-3 ">
       <div className="py-5 border-b">
         <figure className="flex items-center justify-center mb-5">
-          <img className="h-44" src={`http://localhost:8080/${teacherDetails?.profileimagepath}`} alt="" />
+          <img className="h-44" src={`http://16.170.140.185:3000/${teacherDetails?.profileimagepath}`} alt="" />
         </figure>
         <div className="text-center">
          <div>

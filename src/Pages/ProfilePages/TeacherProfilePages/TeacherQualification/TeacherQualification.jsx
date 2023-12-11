@@ -5,6 +5,7 @@ import ViewTeacherQualification from "./ViewTeacherQualification/ViewTeacherQual
 import useAuthChanged from "../../../../Hooks/useAuthChanged";
 import axios from "axios";
 import UpdateTeacherQualification from "./UpdateTeacherQualification/UpdateTeacherQualification";
+import instance from "../../../../config/axios.config";
 const TeacherQualification = () => {
   const [isEdit, setEdit] = useState(false);
   const [Refetch, setRefetch] = useState(true);
@@ -23,9 +24,9 @@ const TeacherQualification = () => {
           );
 
           //console.log(dataValue, "language");
-          axios
+          instance
 
-        .get(`http://localhost:8080/api/teacherschooling/${user?.userid}?languageId=${dataValue?.value}`)
+        .get(`/api/teacherschooling/${user?.userid}?languageId=${dataValue?.value}`)
         .then((res) => {
           if (res?.data) {
             setSchoolingQualificationData(res.data);

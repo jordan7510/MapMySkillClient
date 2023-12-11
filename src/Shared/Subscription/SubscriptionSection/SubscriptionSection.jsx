@@ -4,6 +4,7 @@ import axios from "axios";
 import useGetValue from "../../../Hooks/useGetValue";
 import usePlanDataValue from "../../../Hooks/usePlanDataValue";
 import useAuthChanged from "../../../Hooks/useAuthChanged";
+import instance from "../../../config/axios.config";
 
 function SubscriptionSection() {
   const { user } = useAuthChanged();
@@ -19,13 +20,13 @@ function SubscriptionSection() {
   useEffect(() => {
 
     setPlanData([])
-    // let url = `http://localhost:8080/api/subscriptionplans`;
+    
 
     if (user?.roleid == 4) {
-      // url = `http://localhost:8080/api/subscriptionplans/bystatus?type1=${planType1}&type2=${planType2}&type3=${planType3}`;
+    
 
-      axios
-          .get(`http://localhost:8080/api/subscriptionplans/bystatus?type1=${planType1}&type2=${planType2}&type3=${planType3}`)
+      instance
+          .get(`/api/subscriptionplans/bystatus?type1=${planType1}&type2=${planType2}&type3=${planType3}`)
           .then((res1) => {
             console.log("subs data res1", res1.data);
             res1 ? setPlanData(res1?.data) : null;
@@ -36,10 +37,10 @@ function SubscriptionSection() {
     } 
 
     if (user?.roleid == 3) {
-      // url = `http://localhost:8080/api/subscriptionplans/bystatus?type4=${planType4}`;
+      
 
-      axios
-      .get(`http://localhost:8080/api/subscriptionplans/bystatus?type4=${planType4}`)
+      instance
+      .get(`/api/subscriptionplans/bystatus?type4=${planType4}`)
       .then((res2) => {
         console.log("subs data res2", res2.data);
         res2 ? setPlanData(res2?.data) : null;

@@ -4,6 +4,7 @@ import UpdateTeacherPersonalInformation from "./UpdateTeacherPersonalInformation
 import ViewTeacherPersonalInformation from "./ViewTeacherPersonalInformation/ViewTeacherPersonalInformation";
 import useAuthChanged from "../../../../Hooks/useAuthChanged";
 import axios from "axios";
+import instance from "../../../../config/axios.config";
 
 const TeacherPersonalInformation = () => {
   const [isEdit, setEdit] = useState(false);
@@ -13,8 +14,8 @@ const TeacherPersonalInformation = () => {
   const [personalInfo, setPersonalInfo] = useState({});
   useEffect(() => {
     if (user) {
-      axios
-        .get(`http://localhost:8080/api/personalinfo/byUserId/${user?.userid}`)
+      instance
+        .get(`/api/personalinfo/byUserId/${user?.userid}`)
         .then((res) => {
           //   //console.log(res);
           setPersonalInfo(res?.data);

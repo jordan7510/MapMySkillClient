@@ -6,6 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import { Button, TextField } from "@mui/material";
 import axios from "axios";
 import LoadingProgress from "../LoadingProgress/LoadingProgress";
+import instance from "../../config/axios.config";
 
 const EmailVerifyCard = ({ email, userId }) => {
   const [emailValue, setEmailValue] = useState(email);
@@ -59,8 +60,8 @@ const EmailVerifyCard = ({ email, userId }) => {
       return;
     }
 
-    axios
-      .put(`http://localhost:8080/api/users/updateMobileEmail/${userId}`, {
+    instance
+      .put(`/api/users/updateMobileEmail/${userId}`, {
         email,
       })
       .then((res) => {
@@ -69,8 +70,8 @@ const EmailVerifyCard = ({ email, userId }) => {
             emailId: email,
             isEmailVarified: "N",
           };
-          axios
-            .put(`http://localhost:8080/api/profile/${userId}`, EmailVerify)
+          instance
+            .put(`/api/profile/${userId}`, EmailVerify)
             .then((res) => {
               if (res.data.success) {
                 const userInfo = JSON.parse(localStorage.getItem("user_Info"));

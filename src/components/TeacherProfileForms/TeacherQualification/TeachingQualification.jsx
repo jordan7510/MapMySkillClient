@@ -10,6 +10,7 @@ import NextButton from "../../NextButton/NextButton";
 import useFetchValue from "../../../Hooks/useFetchValue";
 import { StepperProvider } from "../../../Providers/ShowSteperProvider";
 import Swal from "sweetalert2";
+import instance from "../../../config/axios.config";
 
 const TeachingQualification = () => {
   const [user, setUser] = useState({});
@@ -76,13 +77,13 @@ const TeachingQualification = () => {
     //console.log("blocks", blocks);
 
     if (user) {
-      axios
-        .post("http://localhost:8080/api/teacherschooling", schoolingBackgroud)
+      instance
+        .post("/api/teacherschooling", schoolingBackgroud)
         .then((res) => {
           if (res.data.success) {
             if (user) {
-              axios
-                .post("http://localhost:8080/api/teachereducation", blocks)
+              instance
+                .post("/api/teachereducation", blocks)
                 .then((res) => {
                   if (res.data) {
                     const payloadLang = {
@@ -90,9 +91,9 @@ const TeachingQualification = () => {
                       listitemid: TeachingLanguage,
                       listid: listId,
                     };
-                    axios
+                    instance
                       .post(
-                        "http://localhost:8080/api/systemlistdata",
+                        "/api/systemlistdata",
                         payloadLang
                       )
                       .then((res) => {

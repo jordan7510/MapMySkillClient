@@ -6,6 +6,7 @@ import UpdateHigherQualification from "./UpdateHigherQualification/UpdateHigherQ
 import Swal from "sweetalert2";
 import UpdateTeacherLanguage from "./UpdateTeacherLanguage/UpdateTeacherLanguage";
 import useAuthChanged from "../../../../../Hooks/useAuthChanged";
+import instance from "../../../../../config/axios.config";
 
 const UpdateTeacherQualification = ({
   setRefetch,
@@ -29,14 +30,14 @@ const UpdateTeacherQualification = ({
     e.preventDefault();
 
     // qulification data update
-    axios
-      .put(`http://localhost:8080/api/teacherschooling`, updateClasses)
+    instance
+      .put(`/api/teacherschooling`, updateClasses)
       .then((res) => {
         //console.log(res);
         if (res?.data?.success) {
-          axios
+          instance
             .post(
-              "http://localhost:8080/api/teachereducation/updateTeacherEducation",
+              "/api/teachereducation/updateTeacherEducation",
               blocks
             )
             .then((res) => {
@@ -62,15 +63,15 @@ const UpdateTeacherQualification = ({
                         listitemid: listItemIds,
                         listid: langValue?.value,
                       };
-                      axios
+                      instance
                         .delete(
-                          `http://localhost:8080/api/systemlistdata/lang-update/${user?.userid}/${langValue?.value}`
+                          `/api/systemlistdata/lang-update/${user?.userid}/${langValue?.value}`
                         )
                         .then((deleteRes) => {
                           if (deleteRes?.data.success) {
-                            axios
+                            instance
                               .post(
-                                `http://localhost:8080/api/systemlistdata`,
+                                `/api/systemlistdata`,
                                 payloadLang
                               )
                               .then((insertres) => {

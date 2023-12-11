@@ -16,6 +16,7 @@ import axios from "axios";
 import useFetchValue from "../../../Hooks/useFetchValue";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import instance from "../../../config/axios.config";
 
 const StudentHireTutor = () => {
   const [userId, setUserId] = useState("");
@@ -36,8 +37,8 @@ const StudentHireTutor = () => {
   //============Options from database for fields- START==================
   const [segments, setSegments] = useState([]);
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/segment`)
+    instance
+      .get(`/api/segment`)
       .then((response) => {
         // console.log(response.data);
         if (response?.data) {
@@ -51,8 +52,8 @@ const StudentHireTutor = () => {
 
   const handleSegmentChange = (value) => {
     // Fetch subjects based on the selected segment
-    axios
-      .get(`http://localhost:8080/api/subject/bysegment/${value}`)
+    instance
+      .get(`/api/subject/bysegment/${value}`)
       .then((response) => {
         setSubjects(response.data);
       })
@@ -134,15 +135,15 @@ const StudentHireTutor = () => {
       subjectid: selectedSubjects,
     };
 
-    axios
-      .post("http://localhost:8080/api/studentlevel", studentLevelPayload)
+    instance
+      .post("/api/studentlevel", studentLevelPayload)
       .then((res) => {
         //console.log(res);
         if (res.data.success) {
           //console.log(subjectPayload);
-          axios
+          instance
             .post(
-              "http://localhost:8080/api/teachersubject/studentSubject",
+              "/api/teachersubject/studentSubject",
               subjectPayload
             )
             .then((response) => {

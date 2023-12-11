@@ -7,6 +7,7 @@ import { useSearchParams } from "react-router-dom";
 import { StepperProvider } from "../../../Providers/ShowSteperProvider";
 import axios from "axios";
 import { StepperFormNameProvider } from "../../../Providers/FormStepNameProvider";
+import instance from "../../../config/axios.config";
 
 const SignUp = () => {
   const [roleId, setRoleId] = useState(0);
@@ -85,9 +86,9 @@ const SignUp = () => {
           emailId: userInfo?.email,
           isEmailVarified: "Y",
         };
-        axios
+        instance
           .put(
-           ` http://localhost:8080/api/profile/${userInfo?.userID}`,
+           ` /api/profile/${userInfo?.userID}`,
             EmailVerify
           )
           .then((res) => {

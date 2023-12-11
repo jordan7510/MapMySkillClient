@@ -131,7 +131,7 @@ const SignUpForm = ({ roleId }) => {
     };
     // user exist checking
     instance
-      .get(`http://localhost:8080/api/users/${email}/${mobile}`)
+      .get(`/api/users/${email}/${mobile}`)
       .then((res) => {
         console.log(res);
         if (res?.data?.exist) {
@@ -143,7 +143,7 @@ const SignUpForm = ({ roleId }) => {
         } else if (!res.data?.exist) {
           // user new added
           instance
-            .post("http://localhost:8080/api/users", NewUserPayload)
+            .post("/api/users", NewUserPayload)
             .then((userRes) => {
               console.log(userRes);
               if (userRes.statusText == "OK") {
@@ -166,8 +166,8 @@ const SignUpForm = ({ roleId }) => {
                 };
 
 
-                axios
-                  .post("http://localhost:8080/api/profile", payLoad)
+                instance
+                  .post("/api/profile", payLoad)
                   .then((newProfileResponse) => {
                     console.log("response=", newProfileResponse?.data);
                     if (newProfileResponse.statusText == "OK") {
@@ -177,9 +177,9 @@ const SignUpForm = ({ roleId }) => {
                         listid: listId,
                       };
 
-                      axios
+                      instance
                         .post(
-                          "http://localhost:8080/api/systemlistdata",
+                          "/api/systemlistdata",
                           interestedPayload
                         )
                         .then((intResponse) => {

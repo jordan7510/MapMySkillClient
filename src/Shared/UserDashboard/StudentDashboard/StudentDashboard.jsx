@@ -17,6 +17,7 @@ import TutorAccess from "./TutorAccess/TutorAccess";
 import useAuthChanged from "../../../Hooks/useAuthChanged";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import instance from "../../../config/axios.config";
 
 const StudentDashboard = () => {
   const { user } = useAuthChanged();
@@ -29,9 +30,9 @@ const StudentDashboard = () => {
 
   useEffect(() => {
     if (user) {
-      axios
+      instance
         .get(
-          `http://localhost:8080/api/studentlevel/findallbyid/${user?.userid}`
+          `/api/studentlevel/findallbyid/${user?.userid}`
         )
         .then((response) => {
           const allsegmentids = response?.data?.data.map(
@@ -51,8 +52,8 @@ const StudentDashboard = () => {
 
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/contactsviewed/${user?.userid}`)
+    instance
+      .get(`/api/contactsviewed/${user?.userid}`)
       .then((res2) => {
         // console.log("Res2", res2.data);
         // const filtered = res2.data.filter((item1) => {

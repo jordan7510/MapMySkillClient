@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import useFetchValue from "../../../../Hooks/useFetchValue";
 import Multiselect from "multiselect-react-dropdown";
+import instance from "../../../../config/axios.config";
 const AddMoreTutoring = ({ blocks, setBlocks, user }) => {
   //teaching experience
 
@@ -24,8 +25,8 @@ const AddMoreTutoring = ({ blocks, setBlocks, user }) => {
   const [subjects, setSubjects] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/category")
+    instance
+      .get("/api/category")
       .then((response) => {
         setCategories(response.data);
       })
@@ -60,8 +61,8 @@ const AddMoreTutoring = ({ blocks, setBlocks, user }) => {
     setBlocks(updatedBlocks);
 
     // Fetch segments based on the selected category
-    axios
-      .get(`http://localhost:8080/api/segment/bycategory/${value}`)
+    instance
+      .get(`/api/segment/bycategory/${value}`)
       .then((response) => {
         // Update the 'segments' state for the specific block
         const updatedSegments = [...segments];
@@ -80,8 +81,8 @@ const AddMoreTutoring = ({ blocks, setBlocks, user }) => {
     setBlocks(updatedBlocks);
 
     // Fetch subjects based on the selected segment
-    axios
-      .get(`http://localhost:8080/api/subject/bysegment/${value}`)
+    instance
+      .get(`/api/subject/bysegment/${value}`)
       .then((response) => {
         // Update the 'subjects' state for the specific block
         const updatedSubjects = [...subjects];

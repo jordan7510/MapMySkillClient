@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useFetchValue from "../../../../Hooks/useFetchValue";
 import axios from "axios";
+import instance from "../../../../config/axios.config";
 
 const TuitionJobsFilter = ({
   tuitionJobs,
@@ -18,7 +19,7 @@ const TuitionJobsFilter = ({
   const [segments, setSegments] = useState([]);
   
   useEffect(() => {
-    axios.get("http://localhost:8080/api/segment").then((res) => {
+    instance.get("/api/segment").then((res) => {
       setSegments(res?.data);
     });
   }, []);

@@ -5,6 +5,7 @@ import axios from 'axios';
 import DateOfBirthPicker from '../../../../components/DateOfBirthPicker/DateOfBirthPicker';
 import ReactSearchcomplete from '../../../../components/ReactSearchcomplete/ReactSearchcomplete';
 import LocationByPincode from '../../../../components/LocationByPincode/LocationByPincode';
+import instance from '../../../../config/axios.config';
 
 const StudentInformation = ({ setStudentDatOfBirth, setInstituteName }) => {
 
@@ -18,8 +19,8 @@ const StudentInformation = ({ setStudentDatOfBirth, setInstituteName }) => {
 
 
     useEffect(() => {
-        axios
-            .get(`http://localhost:8080/api/segment`)
+        instance
+            .get(`/api/segment`)
             .then((response) => {
                 // console.log(response.data);
                 if (response?.data) {

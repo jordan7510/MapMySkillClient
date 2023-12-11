@@ -14,6 +14,7 @@ import moment from "moment";
 import useFetchValue from "../../../../Hooks/useFetchValue";
 import Swal from "sweetalert2";
 import UserProfileImageUpload from "../../../../components/UserProfileImageUpload/UserProfileImageUpload";
+import instance from "../../../../config/axios.config";
 
 function TeacherBasicDetails() {
   const [showForm, setShowForm] = useState(true);
@@ -28,8 +29,8 @@ function TeacherBasicDetails() {
 
   useEffect(() => {
     if (user?.userid) {
-      axios
-        .get(`http://localhost:8080/api/profile/byUserId/${user?.userid}`)
+      instance
+        .get(`/api/profile/byUserId/${user?.userid}`)
         .then((response) => {
           if (response?.data) {
             //console.log("hello world", response?.data);
@@ -41,9 +42,9 @@ function TeacherBasicDetails() {
 
             setUserDetails(response.data);
             if (response.statusText == "OK") {
-              axios
+              instance
                 .get(
-                  `http://localhost:8080/api/personalinfo/byUserId/${user?.userid}`
+                  `/api/personalinfo/byUserId/${user?.userid}`
                 )
                 .then((res) => {
                   //console.log(res);
@@ -88,9 +89,9 @@ function TeacherBasicDetails() {
           gender: gender,
         };
 
-        axios
+        instance
           .put(
-            `http://localhost:8080/api/profile/${user?.userid}`,
+            `/api/profile/${user?.userid}`,
             profilePayload
           )
           .then((response) => {
@@ -100,9 +101,9 @@ function TeacherBasicDetails() {
                 dateofbirth: dob,
               };
               //console.log(personalInfoPayload);
-              axios
+              instance
                 .put(
-                  `http://localhost:8080/api/personalinfo/${user?.userid}`,
+                  `/api/personalinfo/${user?.userid}`,
                   personalInfoPayload
                 )
                 .then((res) => {

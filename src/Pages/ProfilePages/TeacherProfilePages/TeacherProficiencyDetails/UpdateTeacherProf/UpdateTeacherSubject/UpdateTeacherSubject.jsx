@@ -16,6 +16,7 @@ import {
 import Multiselect from "multiselect-react-dropdown";
 import useFetchValue from "../../../../../../Hooks/useFetchValue";
 import useAuthChanged from "../../../../../../Hooks/useAuthChanged";
+import instance from "../../../../../../config/axios.config";
 const UpdateTeacherSubject = ({ segmentsData, isEdit, blocks, setBlocks }) => {
   //teaching experience
   const { user } = useAuthChanged();
@@ -27,8 +28,8 @@ const UpdateTeacherSubject = ({ segmentsData, isEdit, blocks, setBlocks }) => {
   const [subjects, setSubjects] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/category")
+    instance
+      .get("/api/category")
       .then((response) => {
         setCategories(response.data);
       })
@@ -70,8 +71,8 @@ const UpdateTeacherSubject = ({ segmentsData, isEdit, blocks, setBlocks }) => {
     setBlocks(updatedBlocks);
 
     // Fetch segments based on the selected category
-    axios
-      .get(`http://localhost:8080/api/segment/bycategory/${value}`)
+    instance
+      .get(`/api/segment/bycategory/${value}`)
       .then((response) => {
         // Update the 'segments' state for the specific block
         const updatedSegments = [...segments];
@@ -90,8 +91,8 @@ const UpdateTeacherSubject = ({ segmentsData, isEdit, blocks, setBlocks }) => {
     setBlocks(updatedBlocks);
 
     // Fetch subjects based on the selected segment
-    axios
-      .get(`http://localhost:8080/api/subject/bysegment/${value}`)
+    instance
+      .get(`/api/subject/bysegment/${value}`)
       .then((response) => {
         // Update the 'subjects' state for the specific block
         const updatedSubjects = [...subjects];
@@ -143,9 +144,9 @@ const UpdateTeacherSubject = ({ segmentsData, isEdit, blocks, setBlocks }) => {
     const DefaultSegmentLoad = (block,i) => {
       console.log(block);
       if (block?.id) {
-        axios
+        instance
           .get(
-            `http://localhost:8080/api/segment/bycategory/${block?.category}`
+            `/api/segment/bycategory/${block?.category}`
           )
           .then((response) => {
             // Update the 'segments' state for the specific block
@@ -156,8 +157,8 @@ const UpdateTeacherSubject = ({ segmentsData, isEdit, blocks, setBlocks }) => {
             console.error("Error fetching segments:", error);
           });
 
-        axios
-          .get(`http://localhost:8080/api/subject/bysegment/${block?.segment}`)
+        instance
+          .get(`/api/subject/bysegment/${block?.segment}`)
           .then((response) => {
             // Update the 'subjects' state for the specific block
             console.log(response.data,i);

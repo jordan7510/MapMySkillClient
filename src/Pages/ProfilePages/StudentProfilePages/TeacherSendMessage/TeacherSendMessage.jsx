@@ -4,6 +4,7 @@ import SendMessage from "./SendMessage/SendMessage";
 import useAuthChanged from "../../../../Hooks/useAuthChanged";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import instance from "../../../../config/axios.config";
 
 const TeacherSendMessage = () => {
   const { id } = useParams();
@@ -15,13 +16,13 @@ const TeacherSendMessage = () => {
 
   useEffect(() => {
     if (user?.userid && id) {
-      axios
-        .get(`http://localhost:8080/api/teachertraininglevel/${id}`)
+      instance
+        .get(`/api/teachertraininglevel/${id}`)
         .then((res) => {
           if (res?.data?.success) {
             const segmentData = res?.data?.data;
-            axios
-              .get(`http://localhost:8080/api/teachersubject/${id}`)
+            instance
+              .get(`/api/teachersubject/${id}`)
               .then((subRes) => {
                 const teacherSubject = Object.values(subRes?.data);
                 const subjectValue = teacherSubject.map((items) =>

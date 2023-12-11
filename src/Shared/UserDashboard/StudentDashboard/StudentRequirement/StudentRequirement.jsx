@@ -9,6 +9,7 @@ import StudentRequirementCard from "./StudentRequirementCard/StudentRequirementC
 import axios from "axios";
 import useAuthChanged from "../../../../Hooks/useAuthChanged";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import instance from "../../../../config/axios.config";
 
 function StudentRequirement() {
   const { user } = useAuthChanged();
@@ -18,9 +19,9 @@ function StudentRequirement() {
 
   useEffect(() => {
     if (user) {
-      axios
+      instance
         .get(
-          `http://localhost:8080/api/studentlevel/findallbyid/${user?.userid}`
+          `/api/studentlevel/findallbyid/${user?.userid}`
         )
         .then((response) => {
           console.log("student level data", response.data.data);

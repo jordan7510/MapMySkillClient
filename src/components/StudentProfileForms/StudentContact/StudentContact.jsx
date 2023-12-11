@@ -7,6 +7,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import useFetchValue from "../../../Hooks/useFetchValue";
 import { StepperProvider } from "../../../Providers/ShowSteperProvider";
+import instance from "../../../config/axios.config";
 
 function StudentContact() {
   const [userInfo, setUserInfo] = useState({});
@@ -21,9 +22,9 @@ function StudentContact() {
     const userInfoParse = JSON.parse(userInfoStore);
     if (userInfoStore) {
       setUserId(userInfoParse?.userID);
-      axios
+      instance
         .get(
-          `http://localhost:8080/api/profile/byUserId/${userInfoParse?.userID}`
+          `/api/profile/byUserId/${userInfoParse?.userID}`
         )
         .then((res) => {
           //console.log(res);
@@ -94,8 +95,8 @@ function StudentContact() {
     };
 
     if (userId) {
-      axios
-        .put(`http://localhost:8080/api/profile/${userId}`, contactInfoPayload)
+      instance
+        .put(`/api/profile/${userId}`, contactInfoPayload)
         .then((res) => {
           //console.log(res);
           if (res.data.success) {
@@ -111,8 +112,8 @@ function StudentContact() {
               },
             ];
 
-            axios
-              .post("http://localhost:8080/api/address", userAddress)
+            instance
+              .post("/api/address", userAddress)
               .then((res) => {
                 //console.log(res);
                 if (res.data.success) {
@@ -125,9 +126,9 @@ function StudentContact() {
                     institutename: instituteName?.id,
                     institutelocation: locationInstitute,
                   };
-                  axios
+                  instance
                     .post(
-                      "http://localhost:8080/api/studentpersonalinfo",
+                      "/api/studentpersonalinfo",
                       personalInfoPayload
                     )
                     .then((res) => {

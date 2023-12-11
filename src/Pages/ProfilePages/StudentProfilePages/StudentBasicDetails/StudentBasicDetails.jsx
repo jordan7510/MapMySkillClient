@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import UploadButton from "../../../../components/UploadButton/UploadButton";
 import { Avatar } from "@mui/material";
 import UserProfileImageUpload from "../../../../components/UserProfileImageUpload/UserProfileImageUpload";
+import instance from "../../../../config/axios.config";
 
 function StudentBasicDetails() {
   const { user } = useAuthChanged();
@@ -28,16 +29,16 @@ function StudentBasicDetails() {
   // ======================User Info get start====================
   useEffect(() => {
     if (user?.userid) {
-      axios
-        .get(`http://localhost:8080/api/profile/byUserId/${user?.userid}`)
+      instance
+        .get(`/api/profile/byUserId/${user?.userid}`)
         .then((response) => {
           if (response?.data) {
             // console.log(response?.data);
             setUserDetails(response.data);
             if (response.statusText == "OK") {
-              axios
+              instance
                 .get(
-                  `http://localhost:8080/api/studentpersonalinfo/${user?.userid}`
+                  `/api/studentpersonalinfo/${user?.userid}`
                 )
                 .then((response) => {
                   if (response?.data) {
@@ -96,16 +97,16 @@ function StudentBasicDetails() {
         confirmButtonText: "Yes, Update it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          axios
+          instance
             .put(
-              `http://localhost:8080/api/profile/${user?.userid}`,
+              `/api/profile/${user?.userid}`,
               profilePayload
             )
             .then((response) => {
               if (response.statusText == "OK") {
-                axios
+                instance
                   .put(
-                    `http://localhost:8080/api/studentpersonalinfo/${user?.userid}`,
+                    `/api/studentpersonalinfo/${user?.userid}`,
                     personalInfoPayload
                   )
                   .then((response) => {

@@ -17,6 +17,7 @@ import Swal from "sweetalert2";
 import useGetValue from "../../Hooks/useGetValue";
 import "react-quill/dist/quill.snow.css";
 import usePlanDataValue from "../../Hooks/usePlanDataValue";
+import instance from "../../config/axios.config";
 const style = {
   position: "absolute",
   top: "50%",
@@ -75,8 +76,8 @@ const AddSubcription = ({ open, setOpen, reFetch, setRefetch }) => {
 
     console.log(addNewPlan);
 
-    axios
-      .post("http://localhost:8080/api/subscriptionplans", addNewPlan)
+    instance
+      .post("/api/subscriptionplans", addNewPlan)
       .then((res) => {
         console.log(res);
         if (res?.data?.id) {

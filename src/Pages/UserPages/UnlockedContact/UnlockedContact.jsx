@@ -6,6 +6,7 @@ import axios from "axios";
 import useAuthChanged from "../../../Hooks/useAuthChanged";
 import { Link } from "react-router-dom";
 import UnlockedContactCard from "../UnlockedContactCard/UnlockedContactCard";
+import instance from "../../../config/axios.config";
 
 const UnlockedContact = () => {
   const { user } = useAuthChanged();
@@ -14,15 +15,15 @@ const UnlockedContact = () => {
 
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/users/findallbyrole/3`)
+    instance
+      .get(`/api/users/findallbyrole/3`)
       .then((res1) => {
         // console.log("Res1", res1.data);
         res1.data ? setAllData(res1?.data) : null;
 
         if (res1.statusText == "OK") {
-          axios
-            .get(`http://localhost:8080/api/contactsviewed/${user?.userid}`)
+          instance
+            .get(`/api/contactsviewed/${user?.userid}`)
             .then((res2) => {
               // console.log("Res2", res2.data);
 

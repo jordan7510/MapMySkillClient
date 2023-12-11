@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import MatchingTeacherFilter from "./MatchingTeacherFilter/MatchingTeacherFilter";
 import useGetValue from "../../Hooks/useGetValue";
+import instance from "../../config/axios.config";
 
 const TeachersViewDetails = () => {
   const [refetch, setRefetch] = useState(false);
@@ -30,9 +31,9 @@ const TeachersViewDetails = () => {
 
   useEffect(() => {
     if (id && languageValue && interestedInValue) {
-      axios
+      instance
         .get(
-          `http://localhost:8080/api/users/find-teachers-by-userid/${id}?locationId=${interestedInValue}&languageId=${languageValue}`
+          `/api/users/find-teachers-by-userid/${id}?locationId=${interestedInValue}&languageId=${languageValue}`
         )
         .then((response) => {
           response.data.forEach((tutor) => {

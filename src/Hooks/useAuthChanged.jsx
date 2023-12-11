@@ -12,7 +12,7 @@ const useAuthChanged = () => {
           return;
         }
         const res = await axios.get(
-          "http://localhost:8080/api/users/checkAuth",
+          "http://16.170.140.185:3000/api/users/checkAuth",
           {
             headers: {
               "Content-Type": "application/json",

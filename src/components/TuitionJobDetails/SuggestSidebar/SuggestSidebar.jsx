@@ -4,6 +4,7 @@ import axios from "axios";
 import useAuthChanged from "../../../Hooks/useAuthChanged";
 import { useState } from "react";
 import { useEffect } from "react";
+import instance from "../../../config/axios.config";
 
 const SuggestSidebar = ({ paramid }) => {
   const { user } = useAuthChanged();
@@ -12,8 +13,8 @@ const SuggestSidebar = ({ paramid }) => {
 
   useEffect(() => {
     if (user) {
-      axios
-        .get(`http://localhost:8080/api/studentlevel?user=${user?.userid}`)
+      instance
+        .get(`/api/studentlevel?user=${user?.userid}`)
         .then((res) => {
           if (res.statusText == "OK") {
             const restTuitonData = res?.data?.filter(

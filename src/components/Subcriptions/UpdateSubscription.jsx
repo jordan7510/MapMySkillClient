@@ -18,6 +18,7 @@ import Swal from "sweetalert2";
 import useGetValue from "../../Hooks/useGetValue";
 import "react-quill/dist/quill.snow.css";
 import usePlanDataValue from "../../Hooks/usePlanDataValue";
+import instance from "../../config/axios.config";
 const style = {
   position: "absolute",
   top: "50%",
@@ -91,9 +92,9 @@ const UpdateSubscription = ({
     };
     console.log(UpdatePlan);
 
-    axios
+    instance
       .put(
-        `http://localhost:8080/api/subscriptionplans/update/${planData?.planid}`,
+        `/api/subscriptionplans/update/${planData?.planid}`,
         UpdatePlan
       )
       .then((res) => {
