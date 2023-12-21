@@ -15,7 +15,7 @@ const MonitoringCategoryDiv = ({ link, icon, iconBG, text, monitorCount }) => {
           </p>
         </div>
         <div>
-          <p className="text-white">{monitorCount}</p>
+          <p className="text-white text-center">{monitorCount}</p>
           <p className="text-center text-white text-sm ">{text}</p>
         </div>
       </div>

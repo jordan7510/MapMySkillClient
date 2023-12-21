@@ -78,9 +78,9 @@ const StudentDashboard = () => {
 
   return (
     <div className="bg-slate-100">
-      <div className="flex lg:flex-row flex-col my-4  gap-[62px] px-4 pt-4">
+      <div className="flex  flex-col my-4 px-4 pt-4">
 
-        <div className=" ">
+        <div className="py-8">
           <StudentMonitorSection
             studentLevelData={studentLevelData}
             unlockCount={unlockCount}

@@ -37,7 +37,7 @@ const Home = () => {
 
             <div className='lg:px-[100px] px-2'>
                 <Services></Services>
-                <Testimonials></Testimonials>
+                {/* <Testimonials></Testimonials> */}
                 <Faq></Faq>
 
                 <Tutors></Tutors>

@@ -75,7 +75,7 @@ const ThankYouPage = () => {
           </ui>
         </div>
         <div>
-          <Link to={`/`}>
+          <Link to={`/myaccount/dashboard`}>
             <button className="bg-blue-600 lg:py-2 lg:px-7 py-2 px-7 md:py-4 md:px-14 md:text-xl lg:text-base text-center text-white lg:mt-6 mt-2 hover:bg-blue-700 active:bg-blue-800">
               go back home
             </button>

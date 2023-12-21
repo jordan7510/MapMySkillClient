@@ -16,7 +16,7 @@ import axios from "axios";
 const StudentMonitorSection = ({studentLevelData,unlockCount}) => {
 
   return (
-    <div className="grid grid-cols-1  gap-[43px]">
+    <div className="grid sm:grid-cols-1 md:grid-cols-4 gap-[43px]">
       
         <MonitoringCategoryDiv
           icon={<FaRegHandPointer></FaRegHandPointer>}
@@ -36,18 +36,19 @@ const StudentMonitorSection = ({studentLevelData,unlockCount}) => {
       ></MonitoringCategoryDiv>
 
 
-      <MonitoringCategoryDiv
+      {/* <MonitoringCategoryDiv
         icon={<FaArrowRight></FaArrowRight>}
         iconBG="bg-green-600"
         text="Watchlisted Jobs"
         monitorCount={324}
       ></MonitoringCategoryDiv>
+
       <MonitoringCategoryDiv
         icon={<FaEye></FaEye>}
         iconBG="bg-[#AE3EC9]"
         text="Watchlisted Jobs"
         monitorCount={324}
-      ></MonitoringCategoryDiv>
+      ></MonitoringCategoryDiv> */}
     </div>
   );
 };
